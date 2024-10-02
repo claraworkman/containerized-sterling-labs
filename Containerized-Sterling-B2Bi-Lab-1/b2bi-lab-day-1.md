@@ -1,9 +1,95 @@
 # Containerized Sterling B2Bi Lab - Day 1
 
 ## Connecting to the Bastion server
-Open the command line interface on your machine
-Connect to the Bastion Server using the 'Bastion SSH connection' command provided
-Enter your password using the 'Bastion password' provided
+-Open the command line interface on your machine.  Make sure to open 2 tabs.
+-Connect to the Bastion Server using the 'Bastion SSH connection' command provided and enter your password using the 'Bastion password' provided for both tabs.
+
+## Building Images with Podman
+Install NPM (Node Package Manager)
+    
+    sudo yum install epel-release
+    sudo yum install npm
+
+Clone The Hello World repo
+
+    git clone https://github.com/andrewgmcritchie/learning-containers.git
+    cd learning-containers
+
+Verify the application runs localy
+
+    node hello.js
+
+Open the 2nd tab and verify your app is running locally
+    
+    curl localhost:8888
+
+Return to the previous tab and stop the server with crtl + C or command + C
+
+Build the image with Podman
+
+    podman build -t hello-world .
+
+Verifiy image was built
+
+    podman images
+
+Run a container of our image
+
+    podman run -p 8888:8888 hello-world
+
+Open the 2nd tab and verify we are now running our container
+
+    podman container list
+
+Verify our application is running correctly in the container
+
+    curl 0.0.0.0:8888
+
+Stop the container
+
+    podman container stop <container-id>
+
+## OpenShift: Deployments, Pods, Applications
+
+### Log into OpenShift
+-Follow the OpenShift console link provided
+-Select Log in with kube:admin
+-Use the OpenShift credentials provided
+
+### Log into OpenShift through the Bastion Server
+-In the OpenShift console click on kube:admin in the top right corner
+-Click on copy log in command
+-Click on display token
+-Copy Log in in with this token and paste it in the Bastion CLI
+
+### Deploy Application in OpenShift
+
+Create a new project in OpenShift
+
+    oc new-project hello-world
+
+Create an application using the quay image repository
+
+    oc new-app quay.io/andrewmcritchie_ibm/helloworld --name=hello-world
+
+Verify we created a pod
+    
+    oc get pods
+
+Verify we created a service
+    
+    oc get service
+
+Create a route to our service
+
+    oc create route edge --service=hello-world
+
+Verify and get the newly created route
+
+    oc get route
+    
+Open the OpenShift console to and verify the create pod, service and route in the project we created.
+
 
 ## Install dependencies
 Install Helm
