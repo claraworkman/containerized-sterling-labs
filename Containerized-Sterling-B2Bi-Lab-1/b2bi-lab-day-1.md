@@ -1,104 +1,114 @@
 # Containerized Sterling B2Bi Lab - Day 1
 
-## Connecting to the Bastion server
--Open the command line interface on your machine.  Make sure to open 2 tabs.
--Connect to the Bastion Server using the 'Bastion SSH connection' command provided and enter your password using the 'Bastion password' provided for both tabs.
+## **0. Gain access to the PoC Environment**
 
-## Building Images with Podman
-Install NPM (Node Package Manager)
+### Connect to the Bastion server
+0.1. Open the command line interface on your machine *(Note - Make sure to open 2 tabs)*.
+
+0.2. Connect to the Bastion Server using the 'Bastion SSH connection' command provided and enter your password using the 'Bastion password' provided for both tabs.
+
+## **1. Podman Demo: Build images with Podman**
+
+1.1. Install NPM (Node Package Manager)
     
     sudo yum install epel-release
     sudo yum install npm
 
-Clone The Hello World repo
+1.2. Clone The Hello World repo
 
     git clone https://github.com/andrewgmcritchie/learning-containers.git
     cd learning-containers
 
-Verify the application runs localy
+1.3. Verify the application runs localy
 
     node hello.js
 
-Open the 2nd tab and verify your app is running locally
+1.4. Open the 2nd tab and verify your app is running locally
     
     curl localhost:8888
 
-Return to the previous tab and stop the server with crtl + C or command + C
+1.5. Return to the previous tab and stop the server with <crtl + C> or <command + C>
 
-Build the image with Podman
+1.6. Build the image with Podman
 
     podman build -t hello-world .
 
-Verifiy image was built
+1.7. Verifiy image was built
 
     podman images
 
-Run a container of our image
+1.8. Run a container of our image
 
     podman run -p 8888:8888 hello-world
 
-Open the 2nd tab and verify we are now running our container
+1.9. Open the 2nd tab and verify we are now running our container
 
     podman container list
 
-Verify our application is running correctly in the container
+1.10. Verify our application is running correctly in the container
 
     curl 0.0.0.0:8888
 
-Stop the container
+1.11. Stop the container
 
     podman container stop <container-id>
 
-## OpenShift: Deployments, Pods, Applications
+## **2. OpenShift Demo: Deployments, Pods, and Applications**
 
 ### Log into OpenShift
--Follow the OpenShift console link provided
--Select Log in with kube:admin
--Use the OpenShift credentials provided
+2.1. Follow the OpenShift console link provided
+
+2.2. Select Log in with kube:admin
+
+2.3. Use the OpenShift credentials provided
 
 ### Log into OpenShift through the Bastion Server
--In the OpenShift console click on kube:admin in the top right corner
--Click on copy log in command
--Click on display token
--Copy Log in in with this token and paste it in the Bastion CLI
+2.4. In the OpenShift console click on "kube:admin" in the top right corner
+
+2.5. Click on "copy log in command"
+
+2.6. Click on "display token"
+
+2.7. Copy "Log in in with this token" and paste it in the Bastion CLI
 
 ### Deploy Application in OpenShift
 
-Create a new project in OpenShift
+2.8. Create a new project in OpenShift
 
     oc new-project hello-world
 
-Create an application using the quay image repository
+2.9. Create an application using the quay image repository
 
     oc new-app quay.io/andrewmcritchie_ibm/helloworld --name=hello-world
 
-Verify we created a pod
+2.10. Verify we created a pod
     
     oc get pods
 
-Verify we created a service
+2.11. Verify we created a service
     
     oc get service
 
-Create a route to our service
+2.12. Create a route to our service
 
     oc create route edge --service=hello-world
 
-Verify and get the newly created route
+2.13. Verify and get the newly created route
 
     oc get route
     
-Open the OpenShift console to and verify the create pod, service and route in the project we created.
+2.14. Open the OpenShift console to and verify the create pod, service and route in the project we created
 
 
-## Install dependencies
-Install Helm
+### Install dependencies
+
+2.15. Install Helm
     
     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
     chmod 700 get_helm.sh
     ./get_helm.sh
 
-Install Ansible, python3-pip, java(keytool)
+2.16. Install Ansible, python3-pip, java(keytool)
     
     sudo yum -y install epel-release
     sudo yum -y update
@@ -108,7 +118,8 @@ Install Ansible, python3-pip, java(keytool)
     python3.12 -m pip install kubernetes requests
     ansible-galaxy collection install kubernetes.core
 
-## Verify Depedencies
+2.17. Verify depedencies
+
     git --version
     oc version
     kubectl version
@@ -116,34 +127,39 @@ Install Ansible, python3-pip, java(keytool)
     helm version
     keytool
 
-## Add the Entitled Registry Key
-Use the Entitled Registry Key provided
+2.18. Add the Entitled Registry Key using the Entitled Registry Key provided
     
     export ENTITLED_REGISTRY_KEY=<entitlement_key>
 
-## Log into OpenShift
-Follow the OpenShift console link provided
-Select Log in with kube:admin
-Use the OpenShift credentials provided
+### Log into OpenShift
+2.19. Follow the OpenShift console link provided
 
-## Log into OpenShift through the Bastion Server
-In the OpenShift console click on kube:admin in the top right corner
-Click on copy log in command
-Click on display token
-Copy Log in in with this token and paste it in the Bastion CLI
+2.20. Select "Log in with kube:admin"
 
-## Installing Sterling B2Bi
-Clone the Anisble IBM Sterling repository and open the repo
+2.21. Use the OpenShift credentials provided
+
+### Log into OpenShift through the Bastion Server
+2.22. In the OpenShift console click on kube:admin in the top right corner
+
+2.23. Click on "copy log in command"
+
+2.24. Click on "display token"
+
+2.25. Copy "Log in in with this token" and paste it in the Bastion CLI  
+
+## **3. Install Sterling B2Bi**
+
+3.1. Clone the Anisble IBM Sterling repository and open the repo
     
     git clone https://github.com/ibm-sterling-devops/ansible-ibm-sterling.git
     cd ansible-ibm-sterling
     
-Configure Environment Variables
+3.2. Configure Environment Variables
     
     export ANSIBLE_CONFIG=./ansible.cfg
     export SI_INSTANCEID=dev01
     export SI_VERSION=6.2.0.2
     
-Run the Deploy Sterling B2Bi playbook
+3.3. Run the Deploy Sterling B2Bi playbook
     
     ansible-playbook playbooks/deploy_sb2b.yml
