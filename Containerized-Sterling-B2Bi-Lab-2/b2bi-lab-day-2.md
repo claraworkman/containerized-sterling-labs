@@ -147,9 +147,7 @@ git push
 
 4.8. Sync the changes in Argo via the `ibm-sfg-b2bi-prod` argo application
 
-4.9. Now go to the Redhat Openshift Console and observe the number of pods for the `asi` and `ac` Sterling componets. 
-
-If a pod starts using more than 20% of the allocated CPU the autoscaler is going to spin up a new pod
+4.9. Now go to the Redhat Openshift Console and observe the number of pods for the `asi` and `ac` Sterling componets. If a pod starts using more than 20% of the allocated CPU the autoscaler is going to spin up a new pod.
     
    ![scaleup](https://github.com/user-attachments/assets/b87f4b71-d742-439e-9e20-1974e56d137d)
    
@@ -198,9 +196,7 @@ git push
 # Input your github username when prompted for Username
 # Input the Github Token that you had created earlier when prompted for Password
 ```
-5.5. Sync the changes in Argo  via the `ibm-sfg-b2bi-prod` argo application
-
-Argocd will detect these changes and create a new pod with the latest version.
+5.5. Sync the changes in Argo  via the `ibm-sfg-b2bi-prod` argo application. Argocd will detect these changes and create a new pod with the latest version.
 
   ![pods-termination-v0](https://github.com/user-attachments/assets/8800b414-1bc5-45d0-9487-2e99c95afb68)
         
