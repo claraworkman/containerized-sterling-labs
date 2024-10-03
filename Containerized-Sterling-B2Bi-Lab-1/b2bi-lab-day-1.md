@@ -3,7 +3,7 @@
 ## **0. Gain access to the PoC Environment**
 
 ### Connect to the Bastion server via SSH
-0.1. Open the command line interface on your machine *(Note - Make sure to open 2 tabs)*.
+0.1. Open the command line interface or SSH client of choice on your machine *(Note - if you can, open 2 tabs)*.
 
 0.2. Connect to the Bastion Server using the 'Bastion SSH connection' command provided and enter your password using the 'Bastion password' provided for both tabs.
 
