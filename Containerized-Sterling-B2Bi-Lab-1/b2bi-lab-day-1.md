@@ -84,9 +84,9 @@
 
     oc new-project hello-world
 
-2.9. Create an application using the quay image repository
+2.9. Create an application using source code
 
-    oc new-app quay.io/andrewmcritchie_ibm/helloworld --name=hello-world
+    oc new-app . --name=hello-world
 
 2.10. Verify we created a pod
     
