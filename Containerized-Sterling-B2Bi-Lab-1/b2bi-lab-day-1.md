@@ -117,12 +117,14 @@
 
 2.16. Install Ansible, python3-pip, java(keytool)
     
-    sudo yum -y install epel-release
-    sudo yum -y update
-    sudo yum -y install git ansible python3-pip java-17-openjdk-headless
+    sudo dnf install -y ansible-core python3.12 python3.12-pip java-1.8.0-openjdk.x86_64
+---  
+    sudo alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
+    sudo alternatives --set python3 /usr/bin/python3.12
+---
 
-    python3.12 -m ensurepip --upgrade
-    python3.12 -m pip install kubernetes requests
+    pip3.12 install kubernetes requests
+---
     ansible-galaxy collection install kubernetes.core
 
 2.17. Verify depedencies
