@@ -163,25 +163,27 @@ In this section of the lab, we see how you can upgrade and roll back versions us
 
 Using the GitOps method we see how the upgrade process is shorten.  We are also able to roll back to previous version if there is an issue.  The GitOps method also provides for traceability as to when and who made the change in the commit record in GitHub.
 
-To upgrade the version, first go to the IBM Sterling Console application and check the current version, which is version `6.1.0.0`. 
-![verion](images/v-1.png "Screenshot of version")
+5.1. To upgrade the version, first go to the IBM Sterling Console application and check the current version, which is version `6.1.0.0`. 
 
-Now go update the `values.yaml` file in your repo as follows:
+![v-1](https://github.com/user-attachments/assets/acdb13ae-28f3-48b5-a1be-59689444ca61)
 
-- Step 1:
-    ```bash
-    cd ~/$GIT_ORG/multi-tenancy-gitops-services/instances/ibm-sfg-b2bi
-    ```
-- Step 2: Inside `values.yaml`, find & set the tag from `6.1.0.0` to `6.1.0.1`
-    ```yaml
-  ibm-sfg-prod:
-    global:
-      image:
-        repository: cp.icr.io/cp/ibm-sfg/sfg
-        tag: 6.1.0.0                           <----change to 6.1.0.1       
-    ```
 
-Now deploy the changes by committing and pushing the changes to your `multi-tenancy-gitops-services` repository:
+5.2. Now go update the `values.yaml` file in your repo as follows:
+
+```bash
+cd ~/$GIT_ORG/multi-tenancy-gitops-services/instances/ibm-sfg-b2bi
+```
+
+5.3.  Inside `values.yaml`, find & set the tag from `6.1.0.0` to `6.1.0.1`
+```yaml
+ibm-sfg-prod:
+global:
+image:
+  repository: cp.icr.io/cp/ibm-sfg/sfg
+  tag: 6.1.0.0                           <----change to 6.1.0.1       
+```
+
+5.4. Now deploy the changes by committing and pushing the changes to your `multi-tenancy-gitops-services` repository:
 ```bash
 #change to the `multi-tenancy-gitops-services` directory
 cd ~/$GIT_ORG/multi-tenancy-gitops-services
@@ -196,17 +198,18 @@ git push
 # Input your github username when prompted for Username
 # Input the Github Token that you had created earlier when prompted for Password
 ```
-Sync the changes in Argo  via the `ibm-sfg-b2bi-prod` argo application
+5.5. Sync the changes in Argo  via the `ibm-sfg-b2bi-prod` argo application
 
 Argocd will detect these changes and create a new pod with the latest version.
 
-  ![verion](images/pods-termination-v0.png "Screenshot of version")
+  ![pods-termination-v0](https://github.com/user-attachments/assets/8800b414-1bc5-45d0-9487-2e99c95afb68)
         
-  ![verion](images/pods-version2.png "Screenshot of version")       
+  ![pods-version2](https://github.com/user-attachments/assets/86929a86-ea3e-4b75-902a-e99c1fc92ef1)
 
+5.6. To verify the version, simply go to the Sterling app menu and click on the support button in the Sterling Console.**  
 
-**To verify the version, simply go to the Sterling app menu and click on the support button in the Sterling Console.**  
-![verion](images/newerversion.png "Screenshot of version") 
+![newerversion](https://github.com/user-attachments/assets/10ad01f1-fc31-4d7a-a771-df5d943f976b)
+
 
 ---
 
