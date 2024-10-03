@@ -118,16 +118,21 @@
 2.16. Install Ansible, python3-pip, java(keytool)
     
     sudo dnf install -y ansible-core python3.12 python3.12-pip java-1.8.0-openjdk.x86_64
----  
+
+2.17. Change default python in
+
     sudo alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
     sudo alternatives --set python3 /usr/bin/python3.12
----
+
+2.18. Install python libraries
 
     pip3.12 install kubernetes requests
----
+
+2.19. Install kubernetes.core module
+
     ansible-galaxy collection install kubernetes.core
 
-2.17. Verify depedencies
+2.20. Verify depedencies
 
     git --version
     oc version
@@ -136,25 +141,25 @@
     helm version
     keytool
 
-2.18. Add the Entitled Registry Key using the Entitled Registry Key provided
+2.21. Add the Entitled Registry Key using the Entitled Registry Key provided
     
     export ENTITLED_REGISTRY_KEY=<entitlement_key>
 
 ### Log into OpenShift web console (if you haven't done so)
-2.19. Follow the OpenShift console link provided
+2.22. Follow the OpenShift console link provided
 
-2.20. Select "Log in with kube:admin"
+2.23. Select "Log in with kube:admin"
 
-2.21. Use the OpenShift credentials provided
+2.24. Use the OpenShift credentials provided
 
 ### Log into OpenShift using command line through the Bastion Server (if you haven't done so)
-2.22. In the OpenShift console click on kube:admin in the top right corner
+2.25. In the OpenShift console click on kube:admin in the top right corner
 
-2.23. Click on "copy log in command"
+2.26. Click on "copy log in command"
 
-2.24. Click on "display token"
+2.27. Click on "display token"
 
-2.25. Copy "Log in in with this token" and paste it in the Bastion CLI  
+2.28. Copy "Log in in with this token" and paste it in the Bastion CLI  
 
 ## **3. Install Sterling B2Bi**
 
