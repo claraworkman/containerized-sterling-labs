@@ -7,6 +7,13 @@
 
 0.2. Connect to the Bastion Server using the 'Bastion SSH connection' command provided and enter your password using the 'Bastion password' provided for both tabs.
 
+### Test access to the OpenShift web console
+0.3. Follow the OpenShift console link provided
+
+0.4. Select Log in with kube:admin
+
+0.5. Use the OpenShift credentials provided
+
 ## **1. Podman Demo: Build images with Podman**
 
 1.1. Install NPM (Node Package Manager)
@@ -131,14 +138,14 @@
     
     export ENTITLED_REGISTRY_KEY=<entitlement_key>
 
-### Log into OpenShift
+### Log into OpenShift web console (if you haven't done so)
 2.19. Follow the OpenShift console link provided
 
 2.20. Select "Log in with kube:admin"
 
 2.21. Use the OpenShift credentials provided
 
-### Log into OpenShift through the Bastion Server
+### Log into OpenShift using command line through the Bastion Server
 2.22. In the OpenShift console click on kube:admin in the top right corner
 
 2.23. Click on "copy log in command"
