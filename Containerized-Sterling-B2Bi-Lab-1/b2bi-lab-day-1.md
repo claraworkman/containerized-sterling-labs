@@ -2,7 +2,7 @@
 
 ## **0. Gain access to the PoC Environment**
 
-### Connect to the Bastion server
+### Connect to the Bastion server via SSH
 0.1. Open the command line interface on your machine *(Note - Make sure to open 2 tabs)*.
 
 0.2. Connect to the Bastion Server using the 'Bastion SSH connection' command provided and enter your password using the 'Bastion password' provided for both tabs.
@@ -62,14 +62,14 @@
 
 ## **2. OpenShift Demo: Deployments, Pods, and Applications**
 
-### Log into OpenShift
+### Log into OpenShift web console (if you haven't done so)
 2.1. Follow the OpenShift console link provided
 
 2.2. Select Log in with kube:admin
 
 2.3. Use the OpenShift credentials provided
 
-### Log into OpenShift through the Bastion Server
+### Log into OpenShift using command line through the Bastion Server
 2.4. In the OpenShift console click on "kube:admin" in the top right corner
 
 2.5. Click on "copy log in command"
@@ -145,7 +145,7 @@
 
 2.21. Use the OpenShift credentials provided
 
-### Log into OpenShift using command line through the Bastion Server
+### Log into OpenShift using command line through the Bastion Server (if you haven't done so)
 2.22. In the OpenShift console click on kube:admin in the top right corner
 
 2.23. Click on "copy log in command"
