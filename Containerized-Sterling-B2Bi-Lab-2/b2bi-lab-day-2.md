@@ -1,69 +1,19 @@
 # Containerized Sterling B2Bi Lab - Day 2
 
+## **0. Log into Containerized Sterling B2Bi**
 
+## **1. Run Containerized Sterling B2Bi**
 
+## **2. Create a Business Process**
 
-
-
-
-### Need to Disable the Database Setup before the running through the use cases 2 & 3. 
-
-In  the `multi-tenancy-gitops-server` **repo**  turn off the database generation by editing the properties overide file `values.yaml` for the IBM Sterling B2B Integrator Service.  Execute the following:
-
-```bash
-vi ~/$GIT_ORG/multi-tenancy-gitops-services/instances/ibm-sfg-b2bi-prod/values.yaml
-```
-
-```yaml
-ibm-sfg-prod:
-....
-  dataSetup:
-    enabled: true           <--- change to false
-    upgrade: false
-  env:
-    tz: "UTC"
-    license: "accept"
-    upgradeCompatibilityVerified: false
-  logs:
-    # true if user wish to redirect the application logs to console else false. If provided value is true , then application logs will reside inside containers. No volume mapping will be used.
-    enableAppLogOnConsole: false
-    #setup.cfg configuration starts here. Property names must follow camelCase format.
-  setupCfg:
-    ....
-    dbCreateSchema: true    <----change to false 
-```
-
-Now deploy the changes by committing and pushing the changes to your `multi-tenancy-gitops-services` repository:
-```bash
-#change to the `multi-tenancy-gitops-services` directory
-cd ~/$GIT_ORG/multi-tenancy-gitops-services
-
-# Verify the changes, and add the files that have been changed
-git status
-git add -u
-
-# Finally commit and push the changes
-git commit -s -am "disable the SFG database generation"
-git push
-# Input your github username when prompted for Username
-# Input the Github Token that you had created earlier when prompted for Password
-```
-
-Sync the changes in Argo  via the `ibm-sfg-b2bi-prod` argo application
-
-Now verify the the Sterling File Gateway Console.  Retrieve the Sterling File Gateway console URL.
-```bash
-oc get route -n b2bi-prod ibm-sfg-b2bi-sfg-asi-internal-route-dashboard -o template --template='https://{{.spec.host}}'
-```
-and login with the default credentials:  username:`fg_sysadmin` password: `password` 
-
-# B2Bi Capabilities - Use Case walkthrough
-
-## 1. Self-healing
-
+## **3. Self-heal**
 In this section of the lab, we see how RedHat OpenShift performs self healing when a pod is deleted. 
 
-To delete the pod, login to your cluster with your IBMid by browsing to the `OpenShift web console` (*see your environment assignment e-mail for the link to your ROKS Cluster URL*).  From the administrator section menu on the left, clink on the `Workload` drop down menu and click on Pods, and at the top, select the `tools` project.  Select one of the `ibm-sfg-b2bi-sfg` pods to delete and end of the row, click the vertical dot menu and click delete. 
+3.1. To delete the pod, login to your cluster with your IBMid by browsing to the `OpenShift web console` (*see your environment assignment e-mail for the link to your ROKS Cluster URL*).  
+
+3.2. From the administrator section menu on the left, clink on the `Workload` drop down menu and click on Pods, and at the top, select the `tools` project.  
+
+3.3. Select one of the `ibm-sfg-b2bi-sfg` pods to delete and end of the row, click the vertical dot menu and click delete. 
 
   ![version](images/Delete-a-pod.png "Screenshot of Deletion")
 
@@ -78,64 +28,7 @@ After the pod is deleted, the pod is reinstantiated and processing work as part 
       
   ![verion](images/pod-up.png "Screenshot of termination")
 
----
-
-## 2. Upgrade/Rollback 
-
-In this section of the lab, we see how you can upgrade and roll back versions using the GitOps method.
-
-Using the GitOps method we see how the upgrade process is shorten.  We are also able to roll back to previous version if there is an issue.  The GitOps method also provides for traceability as to when and who made the change in the commit record in GitHub.
-
-To upgrade the version, first go to the IBM Sterling Console application and check the current version, which is version `6.1.0.0`. 
-![verion](images/v-1.png "Screenshot of version")
-
-Now go update the `values.yaml` file in your repo as follows:
-
-- Step 1:
-    ```bash
-    cd ~/$GIT_ORG/multi-tenancy-gitops-services/instances/ibm-sfg-b2bi
-    ```
-- Step 2: Inside `values.yaml`, find & set the tag from `6.1.0.0` to `6.1.0.1`
-    ```yaml
-  ibm-sfg-prod:
-    global:
-      image:
-        repository: cp.icr.io/cp/ibm-sfg/sfg
-        tag: 6.1.0.0                           <----change to 6.1.0.1       
-    ```
-
-Now deploy the changes by committing and pushing the changes to your `multi-tenancy-gitops-services` repository:
-```bash
-#change to the `multi-tenancy-gitops-services` directory
-cd ~/$GIT_ORG/multi-tenancy-gitops-services
-
-# Verify the changes, and add the files that have been changed
-git status
-git add -u
- 
-# Finally commit and push the changes
-git commit -m "update to version 6.1.0.1"
-git push
-# Input your github username when prompted for Username
-# Input the Github Token that you had created earlier when prompted for Password
-```
-Sync the changes in Argo  via the `ibm-sfg-b2bi-prod` argo application
-
-Argocd will detect these changes and create a new pod with the latest version.
-
-  ![verion](images/pods-termination-v0.png "Screenshot of version")
-        
-  ![verion](images/pods-version2.png "Screenshot of version")       
-
-
-**To verify the version, simply go to the Sterling app menu and click on the support button in the Sterling Console.**  
-![verion](images/newerversion.png "Screenshot of version") 
-
-
----
-
-## 3. Horizontal Pod Autoscaling
-
+## **4. Automatically Scale a Pod**
 In this section of the lab, we see how Horizontal Pod Autoscaling works in the OpenShift cluster.  We will see how the Sterling B2B Integrator instaance dynamically scales based on the load on the system.  For this lab we will simulate the load on the system by modifing the deployment paramaters via the GitOps repo. Sterling B2B Integrator can scale up and down manually or automatically.
 
 The deployments settings below affect the load, which are the number of pods and the CPU usage. 
@@ -249,7 +142,122 @@ Now go to the Redhat Openshift Console and observe the number of pods for the `a
   
   - Next, go to the Openshift console and on the left go to the drop down and search under HorizontalPodAutoscaler, you will see the new `asi` and `ac` autoscalers.
 
----
+
+## **5. Upgrade/Roll Back**
+In this section of the lab, we see how you can upgrade and roll back versions using the GitOps method.
+
+Using the GitOps method we see how the upgrade process is shorten.  We are also able to roll back to previous version if there is an issue.  The GitOps method also provides for traceability as to when and who made the change in the commit record in GitHub.
+
+To upgrade the version, first go to the IBM Sterling Console application and check the current version, which is version `6.1.0.0`. 
+![verion](images/v-1.png "Screenshot of version")
+
+Now go update the `values.yaml` file in your repo as follows:
+
+- Step 1:
+    ```bash
+    cd ~/$GIT_ORG/multi-tenancy-gitops-services/instances/ibm-sfg-b2bi
+    ```
+- Step 2: Inside `values.yaml`, find & set the tag from `6.1.0.0` to `6.1.0.1`
+    ```yaml
+  ibm-sfg-prod:
+    global:
+      image:
+        repository: cp.icr.io/cp/ibm-sfg/sfg
+        tag: 6.1.0.0                           <----change to 6.1.0.1       
+    ```
+
+Now deploy the changes by committing and pushing the changes to your `multi-tenancy-gitops-services` repository:
+```bash
+#change to the `multi-tenancy-gitops-services` directory
+cd ~/$GIT_ORG/multi-tenancy-gitops-services
+
+# Verify the changes, and add the files that have been changed
+git status
+git add -u
+ 
+# Finally commit and push the changes
+git commit -m "update to version 6.1.0.1"
+git push
+# Input your github username when prompted for Username
+# Input the Github Token that you had created earlier when prompted for Password
+```
+Sync the changes in Argo  via the `ibm-sfg-b2bi-prod` argo application
+
+Argocd will detect these changes and create a new pod with the latest version.
+
+  ![verion](images/pods-termination-v0.png "Screenshot of version")
+        
+  ![verion](images/pods-version2.png "Screenshot of version")       
+
+
+**To verify the version, simply go to the Sterling app menu and click on the support button in the Sterling Console.**  
+![verion](images/newerversion.png "Screenshot of version") 
+
+## **6. Log back into Sterling**
+
+
+
+
+
+
+
+
+
+
+### Need to Disable the Database Setup before the running through the use cases 2 & 3. 
+
+In  the `multi-tenancy-gitops-server` **repo**  turn off the database generation by editing the properties overide file `values.yaml` for the IBM Sterling B2B Integrator Service.  Execute the following:
+
+```bash
+vi ~/$GIT_ORG/multi-tenancy-gitops-services/instances/ibm-sfg-b2bi-prod/values.yaml
+```
+
+```yaml
+ibm-sfg-prod:
+....
+  dataSetup:
+    enabled: true           <--- change to false
+    upgrade: false
+  env:
+    tz: "UTC"
+    license: "accept"
+    upgradeCompatibilityVerified: false
+  logs:
+    # true if user wish to redirect the application logs to console else false. If provided value is true , then application logs will reside inside containers. No volume mapping will be used.
+    enableAppLogOnConsole: false
+    #setup.cfg configuration starts here. Property names must follow camelCase format.
+  setupCfg:
+    ....
+    dbCreateSchema: true    <----change to false 
+```
+
+Now deploy the changes by committing and pushing the changes to your `multi-tenancy-gitops-services` repository:
+```bash
+#change to the `multi-tenancy-gitops-services` directory
+cd ~/$GIT_ORG/multi-tenancy-gitops-services
+
+# Verify the changes, and add the files that have been changed
+git status
+git add -u
+
+# Finally commit and push the changes
+git commit -s -am "disable the SFG database generation"
+git push
+# Input your github username when prompted for Username
+# Input the Github Token that you had created earlier when prompted for Password
+```
+
+Sync the changes in Argo  via the `ibm-sfg-b2bi-prod` argo application
+
+Now verify the the Sterling File Gateway Console.  Retrieve the Sterling File Gateway console URL.
+```bash
+oc get route -n b2bi-prod ibm-sfg-b2bi-sfg-asi-internal-route-dashboard -o template --template='https://{{.spec.host}}'
+```
+and login with the default credentials:  username:`fg_sysadmin` password: `password` 
+
+# B2Bi Capabilities - Use Case walkthrough
+
+
 
 ## 4. Managed File Transfer
 
