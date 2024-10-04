@@ -1,10 +1,21 @@
 # Containerized Sterling B2Bi Lab - Day 2
 
-## **0. Log into Containerized Sterling B2Bi**
+## **0. Check on Sterling B2Bi installation**
+In this section of the lab, we check on the Sterling B2Bi installation that it completed successfully.
+
+0.1 (login to Openshift)
+
+0.2 (look at the different namespaces/projects - db2, mq, b2bi - that were deployed)
+
+0.3 (go to db2 and mq namespaces one at a time and look at running pods, services for each)
+
+0.4 (go to b2bi namespace and show running pods, secrets (show db credentials), services, routes)
+
+0.5 (in routes, click on b2bi route to bring it up on browser)
 
 ---
 
-## **1. Run Containerized Sterling B2Bi**
+## **1. Log into Containerized Sterling B2Bi**
 
 ---
 
@@ -15,7 +26,7 @@
 ## **3. Self-heal**
 In this section of the lab, we see how RedHat OpenShift performs self healing when a pod is deleted. 
 
-3.1. To delete the pod, login to your cluster with your IBMid by browsing to the `OpenShift web console` (*see your environment assignment e-mail for the link to your ROKS Cluster URL*).  
+3.1. To delete the pod, login to your cluster with your user credentials by browsing to the `OpenShift web console`.  
 
 3.2. From the administrator section menu on the left, clink on the `Workload` drop down menu and click on Pods, and at the top, select the `tools` project.  
 
@@ -38,7 +49,7 @@ After the pod is deleted, the pod is reinstantiated and processing work as part 
 ---
 
 ## **4. Automatically Scale a Pod**
-In this section of the lab, we see how Horizontal Pod Autoscaling works in the OpenShift cluster.  We will see how the Sterling B2B Integrator instaance dynamically scales based on the load on the system.  For this lab we will simulate the load on the system by modifing the deployment paramaters via the GitOps repo. Sterling B2B Integrator can scale up and down manually or automatically.
+In this section of the lab, we see how Horizontal Pod Autoscaling works in the OpenShift cluster.  We will see how the Sterling B2B Integrator instance dynamically scales based on the load on the system.  For this lab we will simulate the load on the system by modifing the deployment paramaters via the GitOps repo. Sterling B2B Integrator can scale up and down manually or automatically.
 
 The deployments settings below affect the load, which are the number of pods and the CPU usage. 
 
@@ -172,13 +183,13 @@ Using the GitOps method we see how the upgrade process is shorten.  We are also 
 cd ~/$GIT_ORG/multi-tenancy-gitops-services/instances/ibm-sfg-b2bi
 ```
 
-5.3.  Inside `values.yaml`, find & set the tag from `6.1.0.0` to `6.1.0.1`
+5.3.  Inside `values.yaml`, find & set the tag from `6.2.0.2` to `6.2.0.3`
 ```yaml
 ibm-sfg-prod:
 global:
 image:
   repository: cp.icr.io/cp/ibm-sfg/sfg
-  tag: 6.1.0.0                           <----change to 6.1.0.1       
+  tag: 6.2.0.2                           <----change to 6.2.0.3       
 ```
 
 5.4. Now deploy the changes by committing and pushing the changes to your `multi-tenancy-gitops-services` repository:
@@ -209,7 +220,7 @@ git push
 
 ---
 
-## **6. Log back into Sterling**
+## **6. Log back into upgraded version of Sterling**
 
 
 ---
