@@ -28,12 +28,11 @@ In this section of the lab, we see how RedHat OpenShift performs self healing wh
 
 3.1. To delete the pod, login to your cluster with your user credentials by browsing to the `OpenShift web console`.  
 
-3.2. From the administrator section menu on the left, clink on the `Workload` drop down menu and click on Pods, and at the top, select the `tools` project.  
+3.2. From the administrator section menu on the left, clink on the `Workload` drop down menu and click on Pods, and at the top, select the `sterling-b2bi-dev01-app` project.  
 
-3.3. Select one of the `ibm-sfg-b2bi-sfg` pods to delete and end of the row, click the vertical dot menu and click delete. 
+3.3. Select one of the `s0-b2bi` pods to delete and end of the row, click the vertical dot menu and click delete. 
 
-<img width="1407" alt="Delete-a-pod" src="https://github.com/user-attachments/assets/48ca94bd-a0c8-404a-ba59-c8c805b9ef0a">
-
+<img width="1407" alt="Delete-a-pod" src="../images/sterling-b2bi-app-pods.png">
       
 After the pod is deleted, the pod is reinstantiated and processing work as part of the deployed Sterling B2B Integrator cluster.
 
@@ -41,10 +40,10 @@ After the pod is deleted, the pod is reinstantiated and processing work as part 
     > While the pod is being terminated a new pod is being created.
     > If you delete on one of the pods or it crashes Openshift will automatically create a new pod to replace the problem pod
       
-![terminat](https://github.com/user-attachments/assets/77a9f214-fd26-45b0-b280-1c1241892b7e)
+![terminate](../images/sterling-b2bi-deleting-pod.png)
 
       
-![pod-up](https://github.com/user-attachments/assets/b305c316-3a3a-4c14-858f-33e441b4e030)
+![pod-up](../images/sterling-b2bi-pod-initializing.png)
 
 ---
 
