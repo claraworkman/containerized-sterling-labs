@@ -16,10 +16,73 @@ In this section of the lab, we check on the Sterling B2Bi installation that it c
 ---
 
 ## **1. Log into Containerized Sterling B2Bi**
+In this section of the lab, we will log in to Sterling B2Bi to access the application. 
+
+1.1. To access B2Bi, login to your cluster with your user credentials by browsing to the 'OpenShift web console'.
+
+1.2. From the administrator section menu on the left, click on the 'Networking' drop down menu and click on 'Routes', and at the top of the dashboard, select the 'sterling-b2bi-dev01-app' project. 
+<img width="1678" alt="Screenshot 2024-10-04 at 1 25 31 PM" src="https://github.com/user-attachments/assets/efa494a5-76cb-45e9-a240-7779148fad95">
+
+1.3. Search for 'dashboard' in the filtering options. Select the location url to access the Sterling B2Bi dashboard.
+<img width="1676" alt="Screenshot 2024-10-04 at 1 25 03 PM" src="https://github.com/user-attachments/assets/ead8c74a-edb4-4d16-a763-daafb0a382d6">
+
+1.4. Log in to Sterling B2Bi using the provided credentials.
+      
+      username = admin
+      password = password
+
+<img width="1233" alt="Screenshot 2024-10-04 at 1 26 13 PM" src="https://github.com/user-attachments/assets/461ca52a-2252-488d-9650-64e16da2bf40">
+
+### Verify running version of Sterling B2B Integrator
+
+1.5. Navigate to the Support page, indicated by the <img width="27" alt="Screenshot 2024-10-04 at 4 24 31 PM" src="https://github.com/user-attachments/assets/b5fbd0a4-b9c3-430b-8d57-7e9cd6a7d6cb"> icon. 
+<img width="1055" alt="Screenshot 2024-10-04 at 4 36 10 PM" src="https://github.com/user-attachments/assets/5e4660bf-3b87-4a2c-8f07-caea0286c23c">
+
+1.6. Navigate to the bottom of the screen to identify the version of running version of Sterling B2Bi. 
+
+<img width="208" alt="Screenshot 2024-10-04 at 4 36 39 PM" src="https://github.com/user-attachments/assets/77705f2d-fae3-40ff-bcb9-b3d170dea6e5">
 
 ---
 
-## **2. Create a Business Process**
+## **2. Create and Execute a Business Process**
+In this section of the lab, we will create and execute a sample business process in Sterling B2Bi.
+
+### Import a Sample Business Process in Sterling B2Bi  
+2.1. From the administration menu on the left, click the 'Deployment' drop down menu and click on the 'Resource Manager' drop down to select 'Import/Export'.
+<img width="1046" alt="Screenshot 2024-10-04 at 1 29 38 PM" src="https://github.com/user-attachments/assets/177ae478-c717-4b47-b181-5e43545e39dd">
+
+2.2. Next to 'Import Resources', select the 'Go!' icon. 
+<img width="1223" alt="Screenshot 2024-10-04 at 1 30 10 PM" src="https://github.com/user-attachments/assets/c8497316-203e-497c-8fb8-3d698cf7c74d">
+
+2.3. Import the 'Sample-BP-Demo-B2Bi-Import.xml' file into Sterling B2Bi to import the sample business process. 
+
+      Passphrase = password 
+
+<img width="1003" alt="Screenshot 2024-10-04 at 3 51 04 PM" src="https://github.com/user-attachments/assets/36e62bbf-2aa3-4a6c-9192-82ead1032528">
+
+2.4. Select default options and finalize the import by selecting 'Finish' to complete the import of the new business process in Sterling B2Bi. 
+<img width="818" alt="Screenshot 2024-10-04 at 3 52 58 PM" src="https://github.com/user-attachments/assets/eef91a68-20ba-4fef-b75f-9aeec57fe1f5">
+
+### Execute the Sterling B2Bi Business Process with Sample Data 
+
+2.5 From the administration section menu on the left, click the 'Business Processes' drop down menu and select 'Manager'. 
+<img width="939" alt="Screenshot 2024-10-04 at 2 08 24 PM" src="https://github.com/user-attachments/assets/43576d42-9995-4c02-916d-fb9ee9ab2236">
+
+2.6. Search for the Process Name 'Sample-BP-Demo' and select the 'Go!' icon to locate the business process. 
+<img width="1269" alt="Screenshot 2024-10-04 at 3 56 25 PM" src="https://github.com/user-attachments/assets/1662894c-917f-44ff-ae68-833ccc98c17c">
+
+2.7. Once directed to the next page, click on the green 'Execution Manager' icon.
+<img width="606" alt="Screenshot 2024-10-04 at 3 57 11 PM" src="https://github.com/user-attachments/assets/975d310f-2248-44cf-b1dc-5967d906949e">
+
+2.7. Once directed to the next page, click on the green 'Execute' icon, to execute the sample business process in Sterling B2Bi.
+<img width="861" alt="Screenshot 2024-10-04 at 3 58 09 PM" src="https://github.com/user-attachments/assets/39182472-7851-4a10-bfc4-5cb55ffd3c35">
+
+2.8. Upload the sample data file 'Sample-Data' and select 'Go!' to execute the business process using the sample data. 
+<img width="700" alt="Screenshot 2024-10-04 at 4 00 27 PM" src="https://github.com/user-attachments/assets/4cefa26c-1e9a-4cc8-a210-91e129a3e12f">
+
+2.9. Review the execution of the sample business process. Once the processing is complete, B2Bi will indicate a status of 'Success'. 
+<img width="786" alt="Screenshot 2024-10-04 at 4 01 01 PM" src="https://github.com/user-attachments/assets/eece3654-8f04-42fc-b04d-55628e3886f7">
+
 
 ---
 
@@ -220,6 +283,20 @@ git push
 ---
 
 ## **6. Log back into upgraded version of Sterling**
+
+6.1. Log in to Sterling B2Bi using the provided credentials.
+      
+      username = admin
+      password = password
+
+<img width="1233" alt="Screenshot 2024-10-04 at 1 26 13 PM" src="https://github.com/user-attachments/assets/461ca52a-2252-488d-9650-64e16da2bf40">
+
+### Verify running version of Sterling B2B Integrator
+
+6.2. Navigate to the Support page, indicated by the <img width="27" alt="Screenshot 2024-10-04 at 4 24 31 PM" src="https://github.com/user-attachments/assets/b5fbd0a4-b9c3-430b-8d57-7e9cd6a7d6cb"> icon. 
+<img width="1055" alt="Screenshot 2024-10-04 at 4 36 10 PM" src="https://github.com/user-attachments/assets/5e4660bf-3b87-4a2c-8f07-caea0286c23c">
+
+6.3. Navigate to the bottom of the screen to identify the upgraded version of Sterling B2Bi. 
 
 
 ---
